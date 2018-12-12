@@ -49,3 +49,7 @@ go get github.com/derekparker/delve/cmd/dlv
 ```
 
 如果没有报错，就可以在vscode中直接debug go 程序了。
+
+debug 快捷键F5.
+
+ctrl+` 显示终端
