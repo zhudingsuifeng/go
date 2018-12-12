@@ -36,3 +36,16 @@ $git status
 ### use the vim in the vscode
 
 对于之前一直使用vim来进行开发的用户来说，vscode还是很友好的，安装vim插件之后，vscode就能支持一些简单的vim快捷键和编程习惯。
+
+### use golang in the vscode
+
+首先在vscode 中安装go 插件，之后编写go程序，最后debug go program。
+
+在vscode中debug go 程序，报错：
+
+```
+cd $GOPATH
+go get github.com/derekparker/delve/cmd/dlv
+```
+
+如果没有报错，就可以在vscode中直接debug go 程序了。
