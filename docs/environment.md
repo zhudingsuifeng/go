@@ -1,3 +1,25 @@
+### Environment variable fle
+
+/etc/profile 
+
+在用户登录时，操作系统定制用户环境时使用的第一个文件，此文件为系统的每个用户设置环境信息，当用户第一次登录时，该文件被执行。
+
+/etc/environment
+
+在用户登录时，操作系统使用的第二个文件，系统在读取用户个人的prifile前，设置环境文件的环境变量。
+
+～/.profile
+
+在用户登录时，用到的第三个文件.profile文件，每个用户都可使用该文件输入专用于自己使用的shell信息，当用户登录时，该文件仅仅执行一次！默认情况下，会设置一些环境变量，执行用户的.bashrc文件。
+
+/etc/bashrc
+
+为每一个运行bash shell的用户执行此文件，当bash shell被打开时，该文件被读取。
+
+~/.bashrc
+
+该文件包含专用于用户的bash shell 的 bash 信息，当登录时以及每一打开新的shell时，该文件被读取。
+
 ### How to set environment variables into ubuntu18
 
 1. 临时设置
@@ -45,6 +67,34 @@ echo $PATH
 or
 env
 ```
+
+### How to set GOPATH and GOROOT
+
+```
+vi ~/.profile
+
+可能会用到的命令：
+
+go env   # 查看当前go的一些环境变量
+which go # go程序在当前系统中的位置
+```
+
+在文件最后添加：
+
+```
+export GOROOT="/usr/lib/go-1.10"
+export GOBIN=$GOROOT/bin
+export GOPATH="/home/fly/github/go"
+export PATH=$PATH:$GOPATH/bin
+```
+
+使文件立即生效：
+
+```
+$source ~/.profile
+```
+
+### Profile loading order
 
 用户登录后加载profile和bashr的顺序：
 
