@@ -1,5 +1,7 @@
 ## GO
 
+下一节： [函数](https://github.com/zhudingsuifeng/go/blob/master/docs/goFunction.md)
+
 ### hello world
 
 package main:每个Go文件都必须以package name 语句开头。包(package)提供了代码封装和重用。这里包的名字为main。
@@ -155,3 +157,5 @@ func main(){
 ```
 
 上面的程序中，语法上5.9是一个浮点数，8是一个整数。因为他们都是数值常量，因此5.9/8是合法的。相处的结果为0.7375， 是一个浮点数。因此变量a 的类型为浮点数。
+
+下一节： [函数](https://github.com/zhudingsuifeng/go/blob/master/docs/goFunction.md)
