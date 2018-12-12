@@ -14,7 +14,7 @@ export PATH=/home/fly/go:$PATH
 export PATH=/home/fly/go:$PATH
 ```
 
-是生效：
+使生效：
 
 ```
 source .bashrc
