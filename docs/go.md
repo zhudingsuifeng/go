@@ -52,3 +52,106 @@ func main(){
 3. 简短声明只能用在函数中。
 
 变量声明后，不能被赋予与其类型不同的值。
+
+### 类型
+
+布尔类型： bool
+
+有符号整型： int8, int16, int32, int64
+
+无符号整型： uint8, uint16, uint32, uint64
+
+浮点型： float32, float64
+
+复数类型： complex64, complex128
+
+byte是uint8 的别名， rune 是 int32 的别名。
+
+string类型： 字符串，字节的集合。
+
+### 类型转换
+
+Go 有着非常严格的强类型特征。Go没有自动类型提升或类型转换。类型转换时，需要显式类型转换。
+
+### 常量
+
+常量(constant)表示固定的值。
+
+关键字 const 修饰的名字为常量，不能被重新赋予任何值。
+
+```
+package main
+
+func main(){
+    const a = 5
+}
+```
+
+常量的值必须在编译期间确定。因此不能将函数的返回值复制给常量，因为函数调用发生在运行期。
+
+```
+package main
+
+import (
+    "fmt"
+    "math"
+)
+
+func main(){
+    fmt.Println("Hello, playground")
+    var a = math.Sqrt(4)   // allowed
+    const b = math.Sqrt(4) // not allowed
+}
+```
+
+Go 是一种强类型语言。 所有变量都需要显式类型。但是常量可以无类型。 
+
+无类型常量有一个默认的类型，当且仅当代码中需要无类型常量提供类型时，他才会提供该默认类型。
+
+### 字符串常量
+
+```
+const helle = "hello world"
+```
+
+字符串没有任何类型。
+
+```
+type mystring string  //创建一个新的类型mystring,他是string 的别名。
+```
+
+（可以通过 type newtype type 的语法来创建一个新的类型。类似C语言的typedef。）
+
+### 布尔常量
+
+```
+const trueConst = true
+```
+
+### 数值常量
+
+```
+const a = 5
+var intv int = a
+var int32v int32 = a
+var float64v float64 =a
+```
+
+上面程序中，const a 是无类型的，值为 5. a可以赋值给任何与之类型兼容的变量。
+
+数值常量可以在表达式中自由的混合和匹配，尽当将他们赋值给变量或者代码中明确需要类型的时候，才需要他们的类型。
+
+```
+package main
+
+import (
+    "fmt"
+)
+
+func main(){
+    var a = 5.9/8
+    fmt.Pringf("a's type %T value %v", a, a)
+}
+```
+
+上面的程序中，语法上5.9是一个浮点数，8是一个整数。因为他们都是数值常量，因此5.9/8是合法的。相处的结果为0.7375， 是一个浮点数。因此变量a 的类型为浮点数。
