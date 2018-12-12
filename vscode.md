@@ -7,7 +7,7 @@
 
 在vscode中安装git支持，点击添加插件按钮，或者使用ctrl + p,后输入ext install 在列表中选择想要安装的插件。
 
-git插件安装好之后，在vscode中添加文件 go/src/hello.go
+git插件安装好之后，在vscode中添加文件 go/src/hello/hello.go
 
 ```
 package main
