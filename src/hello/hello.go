@@ -1,9 +1,13 @@
-package main
+package hello
 
 import "fmt"
+//import "hello"
 
-func main(){
-    name, age := "fly", 24
 
-    fmt.Println("my name is ", name ,"and age is ", age)
+func Ppack(){
+	fmt.Println("This is hello package")
+}
+
+func Sayhi(name string, age int){
+	fmt.Println("my name is ", name ,"and age is ", age)
 }

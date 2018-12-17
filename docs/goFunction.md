@@ -1,6 +1,7 @@
 ## 2 - Function
 
 上一节： [第一篇 变量](https://github.com/zhudingsuifeng/go/blob/master/docs/goStart.md)
+
 下一节： [第三篇 包](https://github.com/zhudingsuifeng/go/blob/master/docs/goPackage.md)
 
 ### 函数声明
@@ -64,4 +65,5 @@ area, _ = rectProps(10, 5)
 
 
 上一节： [第一篇 变量](https://github.com/zhudingsuifeng/go/blob/master/docs/goStart.md)
+
 下一节： [第三篇 包](https://github.com/zhudingsuifeng/go/blob/master/docs/goPackage.md)
