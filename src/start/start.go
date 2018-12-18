@@ -1,14 +1,23 @@
 package main
 
-import "hello"
+import (
+	"bufio"
+	"fmt"
+	"os"
+)
 
 func main(){
-	hello.Ppack()
+	counts := make(map[string]int)
+	input := bufio.NewScanner(os.Stdin)
 
-	name, age := "fly", 24
+	for input.Scan(){
+		counts[input.Text()]++
+	}
 
-	hello.Sayhi(name, age)
-
-	hello.Saypwd()
+	for line, n := range counts{
+		if n > 1{
+			fmt.Printf("%d\t%s\n", n, line)
+		}
+	}
 
 }
