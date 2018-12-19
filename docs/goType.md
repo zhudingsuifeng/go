@@ -23,9 +23,29 @@ p := persion{
 ### 定义接口
 
 ```
+package main
+import "fmt"
 // type 定义接口类型
-type Personer interface{
-    Run()
+type Person interface{
+    Name()
+}
+// 定义Pearson 接口，接口包含Name() 方法
+
+// 定义一个student结构体, 包含name 和 age 属性
+type student struct{
+    name string
+    age int
+}
+
+// 接口实现, 是在结构体上实现的Name()方法，只有student类型的变量才能使用Name()方法
+// (类似class的对象，才能调用对象方法)
+func (s student)Name(){
+    fmt.Println("pearson name is ", s.name)
+}
+
+func main(){
+    s := student{"fly",30}
+    s.Name()
 }
 ```
 
