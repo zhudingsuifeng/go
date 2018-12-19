@@ -127,3 +127,57 @@ func main(){
     fmt.Printf("Area of circle %f", c.Area())
 }
 ```
+
+### 指针接收者 VS 值接收者
+
+值和指针都可以作为接收者。两者的区别在于，以指针作为接收者时，方法内部对其的修改对于调用者时可见的，但是作为值作为接收者却不是。
+
+```
+package main
+
+import (
+    "fmt"
+)
+
+type Employee struct{
+    name string
+    age int
+}
+
+/*
+Method with value receiver
+*/
+func (e Employee) changeName(newName string){
+    e.name = newName
+}
+
+/*
+Method with pointer receiver
+*/
+func (e *Employee) changeAge(newAge int){
+    e.age = newAge
+}
+
+func main(){
+    e := Employee{
+        name: "fly",
+        age: 30,
+    }
+    fmt.Printf("Employee before change name is %s and age is %d", e.name, e.age)
+    e.changeName("bob")
+    (&e).changeAge(24)
+    fmt.Printf("Employee after change name is %s and age is %d", e.name, e.age)
+}
+```
+
+程序中，changeName 方法有一个值接收者(e Employee),而 changeAge方法有一个指针接收者(e *Employee).在changeName中改变Employee的字段name的值对调用者而言时不可见的，因此程序在调用e.changeName("bob") 方法之前和之后，打印name是一致的。而因为changeAge的接收者是一个指针(e *Employee),因此通过调用方法(&e).changeAge(24)来修改age对于调用者时可见的。
+
+changeAge有一个指针类型的接收者需要使用(&e)来调用。Go允许我们省略&符号，因此可以直接写e.changeAge(24).Go将e.changeAge(24)解析为(&e).changeAge(24).
+
+### 何时使用指针接收者，何时使用值接收者？
+
+一般来讲，指针接收者可用于对接收者的修改应该对调用者可见的场合。
+
+指针接收者也可用于拷贝结构体代价较大的场合。考虑一个包含较多字段的结构体，若使用值作为接收者则必须拷贝整个结构体，这样的代价很大。这种情况下使用指针接收者将避免结构体的拷贝，而仅仅是指向结构体指针的拷贝。
+
+其他情况下可以使用值接收者。
