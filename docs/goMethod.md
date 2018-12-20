@@ -181,3 +181,127 @@ changeAge有一个指针类型的接收者需要使用(&e)来调用。Go允许�
 指针接收者也可用于拷贝结构体代价较大的场合。考虑一个包含较多字段的结构体，若使用值作为接收者则必须拷贝整个结构体，这样的代价很大。这种情况下使用指针接收者将避免结构体的拷贝，而仅仅是指向结构体指针的拷贝。
 
 其他情况下可以使用值接收者。
+
+### 匿名字段函数
+
+匿名字段的方法可以被包含该匿名字段的结构体的变量调用，就好像该匿名字段的方法属于包含该字段的结构体一样。
+
+```
+package main
+
+import (
+    "fmt"
+)
+
+type address struct{
+    city string
+    state string
+}
+
+func (a address) fulladdress(){
+    fmt.Printf("Full address: %s, %s", a.city, .state)
+}
+
+type person struct{
+    firstName string
+    lastName string
+    address
+}
+
+func main(){
+    p := person{
+        firstName:"Elon",
+        lastName:"Musk",
+        address:address{
+            city:"Los Angeles",
+            state:"California",
+        },
+    }
+    p.fullAddress() //accessing fullAddress method of address struct
+}
+```
+
+p.fullAddress() 调用address 的方法fullAddress().
+
+### 方法的值接收者VS函数的值接收者
+
+#### 函数值参数只能接受一个值参数，方法值接收者可以接受值或者指针。
+
+```
+package main
+
+import (
+    "fmt"
+)
+
+type rectangle struct{
+    length int
+    width int
+}
+
+func area(r rectangle){
+    fmt.Printf("Area Fnction result: %d\n", (r.length * r.width))
+}
+
+func (r rectangle) area(){
+    fmt.Printf("Area Method result: %d \n", (r.length * r.width))
+}
+
+func main(){
+    r := rectangle{
+        length:10,
+        width:5,
+    }
+    area(r)
+    r.area()
+
+    p := &r
+    /*
+        compilation error, cannot use p(type *rectangle) as type rectangle in argument to area
+    */
+    //area(p)
+    p.area() //calling value receiver with a pointer
+}
+```
+
+### 方法的指针接收者VS函数的指针接收者
+
+#### 函数指针参数只能接受指针，而方法指针接收者可以接受值接收者或者指针接收者。
+
+```
+package main
+
+import (
+    "fmt"
+)
+
+type rectangle struct{
+    length int
+    width int
+}
+
+func perimeter(r *rectangle){
+    fmt.Println("perimeter function output:", 2*(r.length+r.width))
+}
+
+func (r *rectangle) perimeter(){
+    fmt.Println("perimeter method output:", 2*(r.length+r.width))
+}
+
+func main(){
+    r := rectangle{
+        length:10,
+        width:5,
+    }
+    p := &r     // pointer to r
+    perimeter(p)
+    p.perimeter()
+
+    /*
+        cannot use r (type retangle) as type *rectange in argument to perimeter
+    */
+    //perimeter(r)
+
+    r.perimeter()   // calling pointer receiver with a value
+}
+```
