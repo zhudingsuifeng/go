@@ -305,3 +305,42 @@ func main(){
     r.perimeter()   // calling pointer receiver with a value
 }
 ```
+
+### 定义非结构体类型的方法
+
+我们可以定义结构体方法，同样可以定义非结构体方法。需要注意，为了定义某个类型的方法，接收者类型的定义与方法的定义必须在同一个包中。
+
+```
+package main
+
+func (a int) add(b int) {
+
+}
+
+func main(){
+
+}
+```
+
+上面程序中，我们试图添加一个方法add给内置类型int.这是不允许的，因为定义方法add所在的包和定义类型int的包不是同一个包。这个程序将会报编译错误: cannot define new methods on non-local type int.
+
+使其工作的方法为定义内置类型的别名，然后以这个新类型为接收者创建方法。
+
+```
+package main
+
+import "fmt"
+
+type myInt int
+
+func (a myInt) add(b myInt) myInt{
+    return a + b
+}
+
+func main(){
+    num1 := myInt(5)
+    num2 := myInt(10)
+    sum := num1.add(num2)
+    fmt.Println("sum is", sum)
+}
+```
