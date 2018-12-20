@@ -8,6 +8,52 @@ package main:每个Go文件都必须以package name 语句开头。包(package)�
 
 func main():main函数是一个特殊的函数，它是Go程序的入口点。main函数必须包含在main package中。
 
+### go install
+
+go 项目目录结构
+
+```
+go/              <-- go根目录
+|
++- bin/          <-- 可执行文件，使用go install 生成的可执行文件就着这个目录
+|   |
+|   +- nsq       <-- nsq可执行文件
+|
++- src/          <-- 源文件，项目都在这个目录下
+|   |
+|   +- nsq/      <-- nsq项目根目录，在该目录下go install 生成的可执行文件为nsq
+|
++- docs/         <-- 说明文件
+```
+
+在go/src/目录下创建nsq项目，对应nsq目录名称，在该目录下创建start.go文件：
+
+```
+/*start.go*/
+package main
+
+import (
+    "os"
+    "github.com/urfave/cli"
+)
+
+func main(){
+    app := cli.NewApp()
+    app.Name = "greet"
+    app.Usage = "fight the loneliness"
+    app.Action = func(c *cli.Context){
+        println("hello friend")
+    }
+    app.Run(os.Args)
+}
+```
+
+在该目录下执行go install 产生的可执行程序名称为nsq，对应项目根目录名称，而不是包名称main,也不是文件名start,更不是响应名greet.greet 是nsq执行时可选的参数。
+
+```
+nsq greet
+```
+
 ### 变量
 
 ```
